@@ -31,5 +31,21 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
             }
         }
+
+        public async Task<bool> InsertRecipe(RecipeModel recipeModel)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Recipes", recipeModel))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return response.IsSuccessStatusCode;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

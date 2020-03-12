@@ -7,5 +7,6 @@ namespace Cook_Book_Client_Desktop_Library.API
     public interface IRecipesEndPointAPI
     {
         Task<List<RecipeModel>> GetAllRecipesLoggedUser();
+        Task<bool> InsertRecipe(RecipeModel recipeModel);
     }
 }

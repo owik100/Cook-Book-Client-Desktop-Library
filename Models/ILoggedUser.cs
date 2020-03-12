@@ -6,5 +6,7 @@
         string Id { get; set; }
         string Token { get; set; }
         string UserName { get; set; }
+
+        void LogOffUser();
     }
 }

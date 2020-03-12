@@ -12,5 +12,13 @@ namespace Cook_Book_Client_Desktop_Library.Models
         public string Email { get; set; }
         public string UserName { get; set; }
         public string Token { get; set; }
+
+        public void LogOffUser()
+        {
+            Id = "";
+            Email = "";
+            UserName = "";
+            Token = "";
+        }
     }
 }

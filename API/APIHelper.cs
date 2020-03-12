@@ -86,5 +86,10 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
             }
         }
+
+        public void LogOffUser()
+        {
+            _apiClient.DefaultRequestHeaders.Clear();
+        }
     }
 }

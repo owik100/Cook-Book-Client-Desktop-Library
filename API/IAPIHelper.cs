@@ -10,6 +10,6 @@ namespace Cook_Book_Client_Desktop_Library.API
         Task<LoggedUser> GetLoggedUserData(string token);
         HttpClient ApiClient { get; }
 
-
+        void LogOffUser();
     }
 }

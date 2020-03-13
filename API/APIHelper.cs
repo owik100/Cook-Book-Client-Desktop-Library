@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Cook_Book_Client_Desktop_Library.Models;
+using Newtonsoft.Json;
 
 namespace Cook_Book_Client_Desktop_Library.API
 {
@@ -56,6 +57,13 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
+                    //TODO zrobic z tego jakas metode statyczna lub cos
+                    var ErrMsg = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
+                    string msg = ErrMsg["message"];
+                    if (ErrMsg != null)
+                    {
+                        throw new Exception(msg);
+                    }
                     throw new Exception(response.ReasonPhrase);
                 }
             }

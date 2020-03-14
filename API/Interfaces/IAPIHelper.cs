@@ -9,6 +9,7 @@ namespace Cook_Book_Client_Desktop_Library.API.Interfaces
         Task<AuthenticatedUser> Authenticate(string username, string password);
         Task<LoggedUser> GetLoggedUserData(string token);
         HttpClient ApiClient { get; }
+        Task<bool> Register(RegisterModel registerModel);
 
         void LogOffUser();
     }

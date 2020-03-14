@@ -98,6 +98,28 @@ namespace Cook_Book_Client_Desktop_Library.API
             }
         }
 
+        public async Task<bool> Register(RegisterModel registerModel)
+        {
+
+            using (HttpResponseMessage response = await _apiClient.PostAsJsonAsync("/api/Account/register", registerModel))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.IsSuccessStatusCode;
+                }
+                else
+                {
+                    string message = GetMessage.ErrorMessageFromResponse(response);
+
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        throw new Exception(message);
+                    }
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
         public void LogOffUser()
         {
             _apiClient.DefaultRequestHeaders.Clear();

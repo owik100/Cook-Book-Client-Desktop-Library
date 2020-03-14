@@ -84,8 +84,10 @@ namespace Cook_Book_Client_Desktop_Library.API
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<LoggedUser>();
-
-                    _loggedUser = result;
+                    _loggedUser.Id = result.Id;
+                    _loggedUser.Token = token;
+                    _loggedUser.UserName = result.UserName;
+                    _loggedUser.Email = result.Email;
 
                     return result;
                 }

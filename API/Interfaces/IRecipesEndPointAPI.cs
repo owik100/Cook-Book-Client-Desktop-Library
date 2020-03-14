@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cook_Book_Client_Desktop_Library.API
+namespace Cook_Book_Client_Desktop_Library.API.Interfaces
 {
     public interface IRecipesEndPointAPI
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cook_Book_Client_Desktop_Library.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

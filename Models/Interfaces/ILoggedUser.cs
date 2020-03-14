@@ -1,4 +1,4 @@
-﻿namespace Cook_Book_Client_Desktop_Library.Models
+﻿namespace Cook_Book_Client_Desktop_Library.Models.Interfaces
 {
    public interface ILoggedUser
     {

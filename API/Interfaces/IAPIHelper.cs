@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Cook_Book_Client_Desktop_Library.API
+namespace Cook_Book_Client_Desktop_Library.API.Interfaces
 {
     public interface IAPIHelper
     {

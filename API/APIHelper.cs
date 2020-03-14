@@ -6,7 +6,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Cook_Book_Client_Desktop_Library.API.Interfaces;
+using Cook_Book_Client_Desktop_Library.Helpers;
 using Cook_Book_Client_Desktop_Library.Models;
+using Cook_Book_Client_Desktop_Library.Models.Interfaces;
 using Newtonsoft.Json;
 
 namespace Cook_Book_Client_Desktop_Library.API
@@ -22,7 +25,8 @@ namespace Cook_Book_Client_Desktop_Library.API
             _loggedUser = loggedUser;
         }
 
-        public HttpClient ApiClient {
+        public HttpClient ApiClient
+        {
             get
             {
                 return _apiClient;
@@ -57,19 +61,18 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    //TODO zrobic z tego jakas metode statyczna lub cos
-                    var ErrMsg = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
-                    string msg = ErrMsg["message"];
-                    if (ErrMsg != null)
+                    string message = GetMessage.ErrorMessageFromResponse(response);
+
+                    if (!string.IsNullOrEmpty(message))
                     {
-                        throw new Exception(msg);
+                        throw new Exception(message);
                     }
                     throw new Exception(response.ReasonPhrase);
                 }
             }
         }
 
-        public async Task <LoggedUser> GetLoggedUserData(string token)
+        public async Task<LoggedUser> GetLoggedUserData(string token)
         {
             _apiClient.DefaultRequestHeaders.Clear();
             _apiClient.DefaultRequestHeaders.Accept.Clear();
@@ -78,13 +81,11 @@ namespace Cook_Book_Client_Desktop_Library.API
 
             using (HttpResponseMessage response = await _apiClient.GetAsync("/api/User"))
             {
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<LoggedUser>();
-                    _loggedUser.Id = result.Id;
-                    _loggedUser.Token = token;
-                    _loggedUser.UserName = result.UserName;
-                    _loggedUser.Email = result.Email;
+
+                    _loggedUser = result;
 
                     return result;
                 }

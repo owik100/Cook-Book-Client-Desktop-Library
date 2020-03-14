@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Cook_Book_Client_Desktop_Library</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

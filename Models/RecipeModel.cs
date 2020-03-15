@@ -12,7 +12,7 @@ namespace Cook_Book_Client_Desktop_Library.Models
         public string Name { get; set; }
         public IEnumerable<string> Ingredients { get; set; }
         public string Instruction { get; set; }
-        public string Image { get; set; }
+        public string ImagePath { get; set; }
         public string UserId { get; set; }
     }
 }

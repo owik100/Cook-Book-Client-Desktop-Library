@@ -2,6 +2,7 @@
 using Cook_Book_Client_Desktop_Library.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -36,18 +37,40 @@ namespace Cook_Book_Client_Desktop_Library.API
 
         public async Task<bool> InsertRecipe(RecipeModel recipeModel)
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Recipes", recipeModel))
+            try
             {
-                if (response.IsSuccessStatusCode)
-                {
+                var multiForm = new MultipartFormDataContent();
+              
+                string ingredients = string.Join(", ", recipeModel.Ingredients);
 
-                    return response.IsSuccessStatusCode;
-                }
-                else
+                if (recipeModel.ImagePath != null)
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    FileStream fs = File.OpenRead(recipeModel.ImagePath);
+                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.ImagePath));
+                }
+             
+                multiForm.Add(new StringContent(recipeModel.Name), "Name");
+                multiForm.Add(new StringContent(ingredients), "Ingredients");
+                multiForm.Add(new StringContent(recipeModel.Instruction), "Instruction");
+
+                using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsync("/api/Recipes", multiForm))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        return response.IsSuccessStatusCode;
+                    }
+                    else
+                    {
+                        throw new Exception(response.ReasonPhrase);
+                    }
                 }
             }
+            catch
+            {
+                throw;
+            }
+         
         }
     }
 }

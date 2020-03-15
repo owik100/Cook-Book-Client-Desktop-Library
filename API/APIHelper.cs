@@ -100,7 +100,6 @@ namespace Cook_Book_Client_Desktop_Library.API
 
         public async Task<bool> Register(RegisterModel registerModel)
         {
-
             using (HttpResponseMessage response = await _apiClient.PostAsJsonAsync("/api/Account/register", registerModel))
             {
                 if (response.IsSuccessStatusCode)

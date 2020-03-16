@@ -41,7 +41,7 @@ namespace Cook_Book_Client_Desktop_Library.API
             {
                 var multiForm = new MultipartFormDataContent();
 
-                string ingredients = string.Join(", ", recipeModel.Ingredients);
+                string ingredients = string.Join(";", recipeModel.Ingredients);
 
                 if (recipeModel.ImagePath != null)
                 {
@@ -95,7 +95,7 @@ namespace Cook_Book_Client_Desktop_Library.API
             {
                 var multiForm = new MultipartFormDataContent();
 
-                string ingredients = string.Join(", ", recipeModel.Ingredients);
+                string ingredients = string.Join(";", recipeModel.Ingredients);
 
                 if (recipeModel.ImagePath != null)
                 {

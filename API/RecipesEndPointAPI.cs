@@ -40,7 +40,7 @@ namespace Cook_Book_Client_Desktop_Library.API
             try
             {
                 var multiForm = new MultipartFormDataContent();
-              
+
                 string ingredients = string.Join(", ", recipeModel.Ingredients);
 
                 if (recipeModel.ImagePath != null)
@@ -48,7 +48,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                     FileStream fs = File.OpenRead(recipeModel.ImagePath);
                     multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.ImagePath));
                 }
-             
+
                 multiForm.Add(new StringContent(recipeModel.Name), "Name");
                 multiForm.Add(new StringContent(ingredients), "Ingredients");
                 multiForm.Add(new StringContent(recipeModel.Instruction), "Instruction");
@@ -70,7 +70,23 @@ namespace Cook_Book_Client_Desktop_Library.API
             {
                 throw;
             }
-         
+
+        }
+
+        public async Task<bool> DeleteRecipe(string id)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.DeleteAsync($"api/Recipes/{id}"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return response.IsSuccessStatusCode;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
         }
     }
 }

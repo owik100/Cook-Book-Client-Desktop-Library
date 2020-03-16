@@ -88,5 +88,43 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
             }
         }
+
+        public async Task<bool> EditRecipe(RecipeModel recipeModel)
+        {
+            try
+            {
+                var multiForm = new MultipartFormDataContent();
+
+                string ingredients = string.Join(", ", recipeModel.Ingredients);
+
+                if (recipeModel.ImagePath != null)
+                {
+                    FileStream fs = File.OpenRead(recipeModel.ImagePath);
+                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.ImagePath));
+                }
+
+                multiForm.Add(new StringContent(recipeModel.Name), "Name");
+                multiForm.Add(new StringContent(ingredients), "Ingredients");
+                multiForm.Add(new StringContent(recipeModel.Instruction), "Instruction");
+                multiForm.Add(new StringContent(recipeModel.RecipeId.ToString()), "RecipeId");
+
+                using (HttpResponseMessage response = await _apiHelper.ApiClient.PutAsync($"/api/Recipes/{recipeModel.RecipeId.ToString()}", multiForm))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        return response.IsSuccessStatusCode;
+                    }
+                    else
+                    {
+                        throw new Exception(response.ReasonPhrase);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

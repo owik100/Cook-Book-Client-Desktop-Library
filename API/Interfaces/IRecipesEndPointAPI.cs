@@ -9,5 +9,6 @@ namespace Cook_Book_Client_Desktop_Library.API.Interfaces
         Task<List<RecipeModel>> GetAllRecipesLoggedUser();
         Task<bool> InsertRecipe(RecipeModel recipeModel);
         Task<bool> DeleteRecipe(string id);
+        Task<bool> EditRecipe(RecipeModel recipeModel);
     }
 }

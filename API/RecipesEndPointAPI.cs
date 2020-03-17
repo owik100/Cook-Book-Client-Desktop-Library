@@ -1,4 +1,5 @@
 ﻿using Cook_Book_Client_Desktop_Library.API.Interfaces;
+using Cook_Book_Client_Desktop_Library.Helpers;
 using Cook_Book_Client_Desktop_Library.Models;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,38 @@ namespace Cook_Book_Client_Desktop_Library.API
             }
         }
 
+        public async Task<string> GetImagePath(string id)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync($"/api/Recipes/GetPhoto/{id}"))
+            {
+                string ImagePath = "";
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string tempFolderPath = TempData.GetTempFolderPathOrCreate();
+                    ImagePath = tempFolderPath + $@"{id}";
+
+                    var result = await response.Content.ReadAsStreamAsync();
+
+                    MemoryStream memoryStream = result as MemoryStream;
+
+                    FileStream file = new FileStream($@"{tempFolderPath}\{id}", FileMode.Create, FileAccess.Write);
+
+                    memoryStream.WriteTo(file);
+                    file.Close();
+                    memoryStream.Close();
+
+                    
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+
+                return ImagePath;
+            }
+        }
+
         public async Task<bool> InsertRecipe(RecipeModel recipeModel)
         {
             try
@@ -43,10 +76,10 @@ namespace Cook_Book_Client_Desktop_Library.API
 
                 string ingredients = string.Join(";", recipeModel.Ingredients);
 
-                if (recipeModel.ImagePath != null)
+                if (recipeModel.NameOfImage != null)
                 {
-                    FileStream fs = File.OpenRead(recipeModel.ImagePath);
-                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.ImagePath));
+                    FileStream fs = File.OpenRead(recipeModel.NameOfImage);
+                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.NameOfImage));
                 }
 
                 multiForm.Add(new StringContent(recipeModel.Name), "Name");
@@ -97,10 +130,10 @@ namespace Cook_Book_Client_Desktop_Library.API
 
                 string ingredients = string.Join(";", recipeModel.Ingredients);
 
-                if (recipeModel.ImagePath != null)
+                if (recipeModel.NameOfImage != null)
                 {
-                    FileStream fs = File.OpenRead(recipeModel.ImagePath);
-                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.ImagePath));
+                    FileStream fs = File.OpenRead(recipeModel.NameOfImage);
+                    multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.NameOfImage));
                 }
 
                 multiForm.Add(new StringContent(recipeModel.Name), "Name");

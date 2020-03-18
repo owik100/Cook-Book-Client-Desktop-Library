@@ -56,8 +56,11 @@ namespace Cook_Book_Client_Desktop_Library.API
                     memoryStream.WriteTo(file);
 
                     file.Close();
+                    file.Dispose();
                     memoryStream.Close();
+                    memoryStream.Dispose();
                     result.Close();
+                    result.Dispose();
                 }
                 else
                 {

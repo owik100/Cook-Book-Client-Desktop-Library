@@ -36,7 +36,7 @@ namespace Cook_Book_Client_Desktop_Library.API
             }
         }
 
-        public async Task<string> GetImagePath(string id)
+        public async Task<bool> DownloadImage(string id)
         {
             using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync($"/api/Recipes/GetPhoto/{id}"))
             {
@@ -45,7 +45,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 if (response.IsSuccessStatusCode)
                 {
                     string tempFolderPath = TempData.GetTempFolderPathOrCreate();
-                    ImagePath = tempFolderPath + $@"{id}";
+                    ImagePath = TempData.GetImagePath(id);
 
                     var result = await response.Content.ReadAsStreamAsync();
 
@@ -54,17 +54,17 @@ namespace Cook_Book_Client_Desktop_Library.API
                     FileStream file = new FileStream($@"{tempFolderPath}\{id}", FileMode.Create, FileAccess.Write);
 
                     memoryStream.WriteTo(file);
+
                     file.Close();
                     memoryStream.Close();
-
-                    
+                    result.Close();
                 }
                 else
                 {
                     throw new Exception(response.ReasonPhrase);
                 }
 
-                return ImagePath;
+                return true;
             }
         }
 

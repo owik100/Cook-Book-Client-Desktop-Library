@@ -10,6 +10,6 @@ namespace Cook_Book_Client_Desktop_Library.API.Interfaces
         Task<bool> InsertRecipe(RecipeModel recipeModel);
         Task<bool> DeleteRecipe(string id);
         Task<bool> EditRecipe(RecipeModel recipeModel);
-        Task<string> GetImagePath(string id);
+        Task<bool> DownloadImage(string id);
     }
 }

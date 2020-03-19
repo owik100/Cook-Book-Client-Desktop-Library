@@ -133,7 +133,7 @@ namespace Cook_Book_Client_Desktop_Library.API
 
                 string ingredients = string.Join(";", recipeModel.Ingredients);
 
-                if (recipeModel.NameOfImage != null)
+                if (!string.IsNullOrEmpty(recipeModel.NameOfImage))
                 {
                     FileStream fs = File.OpenRead(recipeModel.NameOfImage);
                     multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.NameOfImage));
@@ -143,6 +143,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 multiForm.Add(new StringContent(ingredients), "Ingredients");
                 multiForm.Add(new StringContent(recipeModel.Instruction), "Instruction");
                 multiForm.Add(new StringContent(recipeModel.RecipeId.ToString()), "RecipeId");
+                multiForm.Add(new StringContent(recipeModel.NameOfImage), "NameOfImage");
 
                 using (HttpResponseMessage response = await _apiHelper.ApiClient.PutAsync($"/api/Recipes/{recipeModel.RecipeId.ToString()}", multiForm))
                 {

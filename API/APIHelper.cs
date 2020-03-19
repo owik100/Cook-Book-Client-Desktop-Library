@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Cook_Book_Client_Desktop_Library.API.Interfaces;
@@ -14,8 +15,12 @@ using Newtonsoft.Json;
 
 namespace Cook_Book_Client_Desktop_Library.API
 {
+    
+
     public class APIHelper : IAPIHelper
     {
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private HttpClient _apiClient { get; set; }
         private ILoggedUser _loggedUser { get; set; }
 
@@ -45,6 +50,8 @@ namespace Cook_Book_Client_Desktop_Library.API
 
         public async Task<AuthenticatedUser> Authenticate(string username, string password)
         {
+            _logger.Info("Hello from library");
+
             var data = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string,string>("grant_type", "password"),

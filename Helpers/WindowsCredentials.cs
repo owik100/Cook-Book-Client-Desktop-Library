@@ -8,6 +8,8 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
 {
     public static class WindowsCredentials
     {
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public static void SaveLoginPassword(string UserName, string Password)
         {
             try
@@ -20,11 +22,8 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             }
             catch (Exception ex)
             {
-
-                //
-            }
-
-           
+                _logger.Error("Got exception", ex);
+            }           
         }
 
         public static void DeleteLoginPassword()
@@ -35,9 +34,8 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             }
             catch (Exception ex)
             {
-                //
-            }
-            
+                _logger.Error("Got exception", ex);
+            }          
         }
 
         public static WindowsCredentialsModel LoadLoginPassword()
@@ -53,8 +51,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
         
             catch (Exception ex)
             {
-
-                //
+                _logger.Error("Got exception", ex);
             }
            
             return credModel;

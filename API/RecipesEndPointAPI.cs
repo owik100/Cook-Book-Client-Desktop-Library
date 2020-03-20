@@ -14,6 +14,8 @@ namespace Cook_Book_Client_Desktop_Library.API
 {
     public class RecipesEndPointAPI : IRecipesEndPointAPI
     {
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private IAPIHelper _apiHelper;
         public RecipesEndPointAPI(IAPIHelper apiHelper)
         {
@@ -31,7 +33,9 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    Exception ex = new Exception(response.ReasonPhrase);
+                    _logger.Error("Got exception", ex);
+                    throw ex;
                 }
             }
         }
@@ -64,7 +68,9 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    Exception ex = new Exception(response.ReasonPhrase);
+                    _logger.Error("Got exception", ex);
+                    throw ex;
                 }
 
                 return true;
@@ -98,12 +104,15 @@ namespace Cook_Book_Client_Desktop_Library.API
                     }
                     else
                     {
-                        throw new Exception(response.ReasonPhrase);
+                        Exception ex = new Exception(response.ReasonPhrase);
+                        _logger.Error("Got exception", ex);
+                        throw ex;
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.Error("Got exception", ex);
                 throw;
             }
 
@@ -120,7 +129,9 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    Exception ex = new Exception(response.ReasonPhrase);
+                    _logger.Error("Got exception", ex);
+                    throw ex;
                 }
             }
         }
@@ -154,12 +165,15 @@ namespace Cook_Book_Client_Desktop_Library.API
                     }
                     else
                     {
-                        throw new Exception(response.ReasonPhrase);
+                        Exception ex = new Exception(response.ReasonPhrase);
+                        _logger.Error("Got exception", ex);
+                        throw ex;
                     }
                 }
             }
-            catch
+            catch (Exception exc)
             {
+                _logger.Error("Got exception", exc);
                 throw;
             }
         }

@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Cook_Book_Client_Desktop_Library.API.Interfaces;
@@ -15,11 +14,11 @@ using Newtonsoft.Json;
 
 namespace Cook_Book_Client_Desktop_Library.API
 {
-    
+
 
     public class APIHelper : IAPIHelper
     {
-        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private HttpClient _apiClient { get; set; }
         private ILoggedUser _loggedUser { get; set; }
@@ -40,43 +39,61 @@ namespace Cook_Book_Client_Desktop_Library.API
 
         private void InitializeClient()
         {
-            string api = ConfigurationManager.AppSettings["api"];
+            try
+            {
+                string api = ConfigurationManager.AppSettings["api"];
 
-            _apiClient = new HttpClient();
-            _apiClient.BaseAddress = new Uri(api);
-            _apiClient.DefaultRequestHeaders.Accept.Clear();
-            _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _apiClient = new HttpClient();
+                _apiClient.BaseAddress = new Uri(api);
+                _apiClient.DefaultRequestHeaders.Accept.Clear();
+                _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Got exception", ex);
+            }
         }
 
         public async Task<AuthenticatedUser> Authenticate(string username, string password)
         {
-            _logger.Info("Hello from library");
-
-            var data = new FormUrlEncodedContent(new[]
+            try
             {
+                var data = new FormUrlEncodedContent(new[]
+           {
                 new KeyValuePair<string,string>("grant_type", "password"),
                 new KeyValuePair<string,string>("username", username),
                 new KeyValuePair<string,string>("password", password),
             });
 
-            using (HttpResponseMessage response = await _apiClient.PostAsync("/Token", data))
-            {
-                if (response.IsSuccessStatusCode)
+                using (HttpResponseMessage response = await _apiClient.PostAsync("/Token", data))
                 {
-                    var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
-                    return result;
-                }
-                else
-                {
-                    string message = GetMessage.ErrorMessageFromResponse(response);
-
-                    if (!string.IsNullOrEmpty(message))
+                    if (response.IsSuccessStatusCode)
                     {
-                        throw new Exception(message);
+                        var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
+                        return result;
                     }
-                    throw new Exception(response.ReasonPhrase);
+                    else
+                    {
+                        string message = GetMessage.ErrorMessageFromResponse(response);
+
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            Exception ex = new Exception(message);
+                            _logger.Error("Got exception", ex);
+                            throw ex;
+                        }
+                        Exception exc = new Exception(response.ReasonPhrase);
+                        _logger.Error("Got exception", exc);
+                        throw exc;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                _logger.Error("Got exception", ex);
+                throw;
+            }
+
         }
 
         public async Task<LoggedUser> GetLoggedUserData(string token)
@@ -100,7 +117,9 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    throw new Exception(response.ReasonPhrase);
+                    Exception ex = new Exception(response.ReasonPhrase);
+                    _logger.Error("Got exception", ex);
+                    throw ex;
                 }
             }
         }
@@ -119,16 +138,29 @@ namespace Cook_Book_Client_Desktop_Library.API
 
                     if (!string.IsNullOrEmpty(message))
                     {
-                        throw new Exception(message);
+                        Exception ex = new Exception(message);
+                        _logger.Error("Got exception", ex);
+                        throw ex;
                     }
-                    throw new Exception(response.ReasonPhrase);
+                    Exception exc = new Exception(response.ReasonPhrase);
+                    _logger.Error("Got exception", exc);
+                    throw exc;
                 }
             }
         }
 
         public void LogOffUser()
         {
-            _apiClient.DefaultRequestHeaders.Clear();
+            try
+            {
+                _apiClient.DefaultRequestHeaders.Clear();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Got exception", ex);
+                throw;
+            }
+         
         }
     }
 }

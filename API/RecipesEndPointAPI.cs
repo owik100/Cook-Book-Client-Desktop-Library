@@ -85,7 +85,7 @@ namespace Cook_Book_Client_Desktop_Library.API
 
                 string ingredients = string.Join(";", recipeModel.Ingredients);
 
-                if (recipeModel.NameOfImage != null)
+                if (!string.IsNullOrEmpty(recipeModel.NameOfImage))
                 {
                     FileStream fs = File.OpenRead(recipeModel.NameOfImage);
                     multiForm.Add(new StreamContent(fs), "Image", Path.GetFileName(recipeModel.NameOfImage));

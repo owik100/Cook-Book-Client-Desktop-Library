@@ -143,6 +143,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 var multiForm = new MultipartFormDataContent();
 
                 string ingredients = string.Join(";", recipeModel.Ingredients);
+                string fileName = Path.GetFileName(recipeModel.NameOfImage);
 
                 if (!string.IsNullOrEmpty(recipeModel.NameOfImage))
                 {
@@ -154,7 +155,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 multiForm.Add(new StringContent(ingredients), "Ingredients");
                 multiForm.Add(new StringContent(recipeModel.Instruction), "Instruction");
                 multiForm.Add(new StringContent(recipeModel.RecipeId.ToString()), "RecipeId");
-                multiForm.Add(new StringContent(recipeModel.NameOfImage), "NameOfImage");
+                multiForm.Add(new StringContent(fileName), "NameOfImage");
 
                 using (HttpResponseMessage response = await _apiHelper.ApiClient.PutAsync($"/api/Recipes/{recipeModel.RecipeId.ToString()}", multiForm))
                 {

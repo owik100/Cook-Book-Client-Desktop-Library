@@ -6,10 +6,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Cook_Book_Client_Desktop_Library.API.Interfaces;
 using Cook_Book_Client_Desktop_Library.Helpers;
-using Cook_Book_Client_Desktop_Library.Models;
-using Cook_Book_Client_Desktop_Library.Models.Interfaces;
+using Cook_Book_Shared_Code.API;
+using Cook_Book_Shared_Code.Models;
 using Newtonsoft.Json;
 
 namespace Cook_Book_Client_Desktop_Library.API

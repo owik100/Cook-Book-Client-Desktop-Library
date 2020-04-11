@@ -1,6 +1,6 @@
-﻿using Cook_Book_Client_Desktop_Library.API.Interfaces;
-using Cook_Book_Client_Desktop_Library.Helpers;
-using Cook_Book_Client_Desktop_Library.Models;
+﻿using Cook_Book_Client_Desktop_Library.Helpers;
+using Cook_Book_Shared_Code.API;
+using Cook_Book_Shared_Code.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;

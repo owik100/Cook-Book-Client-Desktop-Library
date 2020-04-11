@@ -13,4 +13,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cook-Book-Shared-Code\Cook-Book-Shared-Code.csproj" />
+  </ItemGroup>
 </Project>

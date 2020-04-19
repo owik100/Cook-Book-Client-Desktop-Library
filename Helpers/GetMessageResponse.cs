@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace Cook_Book_Client_Desktop_Library.Helpers
 {
-    public static class GetMessage
+    public static class GetMessageResponse
     {
         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

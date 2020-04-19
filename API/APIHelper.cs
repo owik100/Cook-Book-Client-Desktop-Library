@@ -73,7 +73,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                     }
                     else
                     {
-                        string message = GetMessage.ErrorMessageFromResponse(response);
+                        string message = GetMessageResponse.ErrorMessageFromResponse(response);
 
                         if (!string.IsNullOrEmpty(message))
                         {
@@ -133,7 +133,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 }
                 else
                 {
-                    string message = GetMessage.ErrorMessageFromResponse(response);
+                    string message = GetMessageResponse.ErrorMessageFromResponse(response);
 
                     if (!string.IsNullOrEmpty(message))
                     {

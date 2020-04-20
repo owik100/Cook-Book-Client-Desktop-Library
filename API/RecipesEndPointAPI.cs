@@ -183,7 +183,7 @@ namespace Cook_Book_Client_Desktop_Library.API
 
         public async Task<List<RecipeModel>> GetPublicRecipes()
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/GetPublicRecipes"))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Recipes/GetPublicRecipes"))
             {
                 if (response.IsSuccessStatusCode)
                 {

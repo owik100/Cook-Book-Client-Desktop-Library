@@ -111,6 +111,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                     _loggedUser.Token = token;
                     _loggedUser.UserName = result.UserName;
                     _loggedUser.Email = result.Email;
+                    _loggedUser.FavouriteRecipes = result.FavouriteRecipes;
 
                     return result;
                 }

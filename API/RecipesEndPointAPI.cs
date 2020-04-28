@@ -58,6 +58,24 @@ namespace Cook_Book_Client_Desktop_Library.API
             }
         }
 
+        public async Task<List<RecipeModel>> GetFavouritesRecipes(int PageSize, int PageNumber)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync($"/api/Recipes/GetFavouritesRecipes/{PageSize}/{PageNumber}"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<List<RecipeModel>>();
+                    return result;
+                }
+                else
+                {
+                    Exception ex = new Exception(response.ReasonPhrase);
+                    //_logger.Error("Got exception", ex);
+                    throw ex;
+                }
+            }
+        }
+
         public async Task<bool> DownloadImage(string id)
         {
             using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync($"/api/Recipes/GetPhoto/{id}"))
@@ -197,6 +215,6 @@ namespace Cook_Book_Client_Desktop_Library.API
                 _logger.Error("Got exception", exc);
                 throw;
             }
-        }
+        }      
     }
 }

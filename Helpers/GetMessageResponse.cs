@@ -20,7 +20,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             {
                 _logger.Error("Got exception", ex);
                 throw;
-            }         
+            }
             return output;
         }
     }

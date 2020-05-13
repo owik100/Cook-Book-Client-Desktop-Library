@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Cook_Book_Client_Desktop_Library.Helpers;
+﻿using Cook_Book_Client_Desktop_Library.Helpers;
 using Cook_Book_Shared_Code.API;
 using Cook_Book_Shared_Code.Models;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Cook_Book_Client_Desktop_Library.API
 {
@@ -160,7 +157,7 @@ namespace Cook_Book_Client_Desktop_Library.API
                 _logger.Error("Got exception", ex);
                 throw;
             }
-         
+
         }
 
         public async Task<bool> EditUser(LoggedUser loggedUser)

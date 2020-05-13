@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Cook_Book_Client_Desktop_Library.Helpers
 {
@@ -20,7 +19,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             {
                 _logger.Error("Got exception", ex);
                 throw;
-            }         
+            }
         }
 
         public static string GetImagePath(string name)
@@ -55,7 +54,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
                 _logger.Error("Got exception", ex);
                 throw;
             }
-           
+
             return output;
         }
 

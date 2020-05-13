@@ -4,10 +4,7 @@ using Cook_Book_Shared_Code.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Cook_Book_Client_Desktop_Library.API
@@ -215,6 +212,6 @@ namespace Cook_Book_Client_Desktop_Library.API
                 _logger.Error("Got exception", exc);
                 throw;
             }
-        }      
+        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Cook_Book_Client_Desktop_Library.Models;
 using Meziantou.Framework.Win32;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cook_Book_Client_Desktop_Library.Helpers
 {
@@ -23,7 +21,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             catch (Exception ex)
             {
                 _logger.Error("Got exception", ex);
-            }           
+            }
         }
 
         public static void DeleteLoginPassword()
@@ -35,7 +33,7 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
             catch (Exception ex)
             {
                 _logger.Error("Got exception", ex);
-            }          
+            }
         }
 
         public static WindowsCredentialsModel LoadLoginPassword()
@@ -48,12 +46,12 @@ namespace Cook_Book_Client_Desktop_Library.Helpers
                 credModel.UserName = cred.UserName;
                 credModel.Password = cred.Password;
             }
-        
+
             catch (Exception ex)
             {
                 _logger.Error("Got exception", ex);
             }
-           
+
             return credModel;
         }
     }
